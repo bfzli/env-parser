@@ -1,17 +1,18 @@
 {
     "name": "env-parser",
-    "version": "0.0.2",
-    "description": "📖 Add creative flair to your projects with quick and easy content generation.",
-    "main": "dist/index.js",
+    "version": "0.0.1",
+    "description": "A simple parser to convert environment variables to object 🛠️",
+    "main": "index.js",
     "repository": {
       "type": "git",
-      "url": "https://github.com/bfzli/conteter"
+      "url": "https://github.com/bfzli/env-parser"
     },
     "keywords": [
-      "contenter",
-      "content",
-      "generate content",
-      "random content"
+      "env",
+      "parser",
+      "env parser",
+      "env to json",
+      "env to object"
     ],
     "author": "@bfzli",
     "license": "MIT"

@@ -1,6 +1,6 @@
 {
-  "name": "goatslider",
-  "version": "1.0.0",
+  "name": "env-parser",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "build": "eslint . --ext .js,.ts --config .eslintrc.json && npx rollup -c",
@@ -15,10 +15,7 @@
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
     "eslint": "^8.52.0",
-    "postcss": "^8.4.33",
     "rollup": "^4.2.0",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.6.2",
     "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.5.3"
