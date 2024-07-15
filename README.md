@@ -4,8 +4,6 @@ Parse your variables into objects easily, or use it to build something greater w
 
 When you provide `envPath` (the path to your .env file) as a prop, the function is called on the server side. Alternatively, if you provide `envContent` (a copy-paste of your env files), it runs on either the client or the backend, depending on your environment.
 
----
-
 ## **How To Env Parser**
 
 ### **Importing the Env Parser**

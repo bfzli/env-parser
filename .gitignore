@@ -2,6 +2,7 @@
 /dist
 /node_modules
 /package
+/tests
 
 # Files
 .DS_Store

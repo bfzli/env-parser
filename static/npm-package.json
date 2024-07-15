@@ -1,19 +1,27 @@
 {
-    "name": "env-parser",
+    "name": "@miniapps/env-parser",
     "version": "0.0.1",
     "description": "A simple parser to convert environment variables to object 🛠️",
     "main": "index.js",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/bfzli/env-parser"
+        "type": "git",
+        "url": "git+https://github.com/bfzli/env-parser.git"
     },
     "keywords": [
-      "env",
-      "parser",
-      "env parser",
-      "env to json",
-      "env to object"
+        "env",
+        "parser",
+        "env parser",
+        "env to json",
+        "env to object"
     ],
     "author": "@bfzli",
-    "license": "MIT"
+    "license": "MIT",
+    "directories": {
+        "lib": "lib"
+    },
+    "types": "./index.d.ts",
+    "bugs": {
+        "url": "https://github.com/bfzli/env-parser/issues"
+    },
+    "homepage": "https://github.com/bfzli/env-parser#readme"
 }
