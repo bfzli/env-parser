@@ -16,12 +16,19 @@ export default [
                 tsconfig: './tsconfig.json'
             })
         ],
-        output: {
-            exports: 'named',
-            dir: 'package',
-            format: 'esm',
-            preserveModules: true
-        },
+        output: [
+            {
+                exports: 'named',
+                dir: 'package/esm',
+                format: 'esm',
+                preserveModules: true
+            },
+            {
+                dir: 'package/cjs',
+                format: 'cjs',
+                preserveModules: true
+            }
+        ],
         external: ['readline', 'fs', 'stream'],
         watch: {
             chokidar: {},

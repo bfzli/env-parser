@@ -1,17 +1,17 @@
 import type { EnvParserPropTypes, EnvParserReturnTypes } from '@/ts'
 
-import { createReadStream } from 'fs'
-import { createInterface } from 'readline'
-import { Readable as readable } from 'stream'
-
 const ServerEnvParser = async (props: EnvParserPropTypes): Promise<EnvParserReturnTypes> => {
     const { envContent, envPath } = props
 
     try {
+        const { createReadStream } = await import('fs')
+        const { createInterface } = await import('readline')
+        const { Readable: readable } = await import('stream')
+
         let lines: AsyncIterableIterator<string> | null = null
         const variables: Record<string, string> = {}
 
-        if (envContent && window === undefined) {
+        if (envContent && typeof window === 'undefined') {
             const stream = readable.from(envContent)
 
             const rl = createInterface({
@@ -23,7 +23,7 @@ const ServerEnvParser = async (props: EnvParserPropTypes): Promise<EnvParserRetu
         }
 
         if (envPath) {
-            const fileStream = createReadStream('.env', {
+            const fileStream = createReadStream(envPath, {
                 encoding: 'utf8'
             })
             
@@ -37,7 +37,7 @@ const ServerEnvParser = async (props: EnvParserPropTypes): Promise<EnvParserRetu
 
         if (lines) {
             for await (const l of lines) {
-                const line = l.trim()
+                const line = l?.trim()
             
                 if (line && line.includes('=') && !line.startsWith('#')) {
                     const equalSplits = line.split('=')

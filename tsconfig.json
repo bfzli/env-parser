@@ -34,7 +34,7 @@
     "baseUrl": "./",
     "typeRoots": [
       "./node_modules/@types",
-      "./goatslider/types"
+      "./ts"
     ]
   }
 }

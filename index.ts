@@ -1,64 +1,87 @@
 import type { EnvParserPropTypes, EnvParserReturnTypes } from '@/ts'
-import { ClientEnvParser, ServerEnvParser } from '@/lib'
+import { ClientEnvParser } from '@/lib'
 
-export const EnvParser = (props: EnvParserPropTypes): Promise<EnvParserReturnTypes> => {
-    const { envContent, envPath } = props
+export const EnvParser = async (props: EnvParserPropTypes): Promise<EnvParserReturnTypes> => {
+    try {
+        const { envContent, envPath } = props
 
-    if (envContent !== undefined && envPath !== undefined) return Promise.resolve({
-        success: false,
-        error: 'The envContent and envPath cannot be used together!',
-        variables: {}
-    })
-
-    if (envContent) {
-        if (typeof envContent !== 'string') return Promise.resolve({
+        if (envContent !== undefined && envPath !== undefined) return Promise.resolve({
             success: false,
-            error: 'The envContent must be a string!',
+            error: 'The envContent and envPath cannot be used together!',
             variables: {}
         })
 
-        else if (envContent === '') return Promise.resolve({
-            success: false,
-            error: 'The envContent must not be empty!',
-            variables: {}
-        })
+        if (envContent) {
+            if (typeof envContent !== 'string') return Promise.resolve({
+                success: false,
+                error: 'The envContent must be a string!',
+                variables: {}
+            })
 
-        else if (envContent) return Promise.resolve(ClientEnvParser(props))
+            else if (envContent === '') return Promise.resolve({
+                success: false,
+                error: 'The envContent must not be empty!',
+                variables: {}
+            })
+
+            else if (envContent) return Promise.resolve(ClientEnvParser(props))
+
+            else return Promise.resolve({
+                success: false,
+                error: 'The envContent must be provided!',
+                variables: {}
+            })
+        }
+
+        if (envPath) {
+            if (typeof envPath !== 'string') return Promise.resolve({
+                success: false,
+                error: 'The envPath must be a string!',
+                variables: {}
+            })
+        
+            else if (envPath === '') return Promise.resolve({
+                success: false,
+                error: 'The envPath must not be empty!',
+                variables: {}
+            })
+
+            else if (envPath) {
+                const isServer = typeof window === 'undefined'
+
+                if (isServer) {
+                    const { ServerEnvParser } = await import('@/lib')
+                    return Promise.resolve(ServerEnvParser(props))
+                }
+
+                else return Promise.resolve({
+                    success: false,
+                    error: 'The envPath cannot be used in the browser!',
+                    variables: {}
+                })
+            }
+
+            else return Promise.resolve({
+                success: false,
+                error: 'The envPath must be provided!',
+                variables: {}
+            })
+        }
 
         else return Promise.resolve({
             success: false,
-            error: 'The envContent must be provided!',
+            error: 'The envContent or envPath must be provided!',
             variables: {}
         })
     }
 
-    if (envPath) {
-        if (typeof envPath !== 'string') return Promise.resolve({
+    catch (error) {
+        return Promise.resolve({
             success: false,
-            error: 'The envPath must be a string!',
-            variables: {}
-        })
-    
-        else if (envPath === '') return Promise.resolve({
-            success: false,
-            error: 'The envPath must not be empty!',
-            variables: {}
-        })
-
-        else if (envPath) return ServerEnvParser(props)
-
-        else return Promise.resolve({
-            success: false,
-            error: 'The envPath must be provided!',
+            error: error as string,
             variables: {}
         })
     }
-
-    else return Promise.resolve({
-        success: false,
-        error: 'The envContent or envPath must be provided!',
-        variables: {}
-    })
 }
 
 export default EnvParser
